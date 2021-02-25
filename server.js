@@ -7,7 +7,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set("view engine", "ejs");
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
   console.log("servidor rodando na porta 3000");
 });
 
