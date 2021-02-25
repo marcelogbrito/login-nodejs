@@ -14,6 +14,7 @@
                 <td>Nome</td>
                 <td>Sobrenome</td>
                 <td>Login</td>
+                <td>Ação</td>
 
             </tr>
         </thead>
@@ -24,6 +25,7 @@
                 <td><%= details.nome %></td>
                 <td><%= details.sobrenome %></td>
                 <td><%= details.login %></td>
+                <td><a href="/edit/<%= details._id %>">Editar</a>  <a href="/delete/<%= details._id %>">Deletar</a></td>
             </tr>
             <% }) %>
         </tbody>

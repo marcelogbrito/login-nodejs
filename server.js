@@ -38,3 +38,21 @@ app.post("/realizarlogin", (req, res) => {
     );
   }
 });
+
+app
+  .route("/edit/:id")
+  .get((req, res) => {
+    var id = req.params.id;
+    Login.findByPk(id).then((results) =>
+      res.render("edit.ejs", { data: results })
+    );
+  })
+  .post((req, res) => {
+    Login.findByPk(req.params.id).then((login) => {
+      login.nome = req.params.nome;
+      login.sobrenome = req.params.sobrenome;
+      login.login = req.params.login;
+      login.senha = req.params.senha;
+      login.save().then(res.redirect("show"));
+    });
+  });
