@@ -6,12 +6,14 @@
 </head>
 <body>
 
-    <h2>Registrar<h2>
-    <form action="/show" method="POST">
-        <input type="text" placeholder="Login" name="login">
-        <input type="text" placeholder="Nome" name="nome">
-        <input type="text" placeholder="Sobrenome" name="sobrenome">
-        <input type="password" placeholder="Senha" name="senha">
+    <h2>Editar registro<h2>
+
+
+    <form action="/edit/<%= data.idlogin%>" method="POST">
+        <input type="text" placeholder="Login" value="<%= data.login%>" name="login">
+        <input type="text" placeholder="Nome" value="<%= data.nome%>" name="nome">
+        <input type="text" placeholder="Sobrenome" value="<%= data.sobrenome%>" name="sobrenome">
+        <input type="password" placeholder="Senha" value="<%= data.senha%>" name="senha">
         <button type="submit">Enviar</button>
     </form> 
 

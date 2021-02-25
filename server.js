@@ -29,16 +29,18 @@ app.get("/show", (req, res) => {
 
 app.post("/realizarlogin", (req, res) => {
   console.log(req.body.login);
-  const login = Login.findOne({ where: { login: req.body.login } });
-  if (login === null) {
-    res.send("login incorreto");
-  } else {
-    Login.findAll().then((results) =>
-      res.render("show.ejs", { data: results })
-    );
-  }
+  Login.findOne({ where: { login: req.body.login } }).then((login) => {
+    if (login === null) {
+      res.send("<h1>login incorreto</h1> <a href='/'>Tentar novamente</a>");
+    } else {
+      Login.findAll().then((results) =>
+        res.render("show.ejs", { data: results })
+      );
+    }
+  });
 });
 
+//update
 app
   .route("/edit/:id")
   .get((req, res) => {
@@ -49,10 +51,19 @@ app
   })
   .post((req, res) => {
     Login.findByPk(req.params.id).then((login) => {
-      login.nome = req.params.nome;
-      login.sobrenome = req.params.sobrenome;
-      login.login = req.params.login;
-      login.senha = req.params.senha;
-      login.save().then(res.redirect("show"));
+      login.nome = req.body.nome;
+      login.sobrenome = req.body.sobrenome;
+      login.login = req.body.login;
+      login.senha = req.body.senha;
+      login.save().then(res.redirect("/show"));
     });
   });
+
+//deletar
+app.route("/delete/:id").get((req, res) => {
+  var id = req.params.id;
+
+  Login.findByPk(id).then((login) =>
+    login.destroy().then(res.redirect("/show"))
+  );
+});
